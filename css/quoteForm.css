@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+html{
+    background-color:beige;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Open Sans', sans-serif;
+}
+.form-total{
+    float: left;
+    overflow: auto;
+}
+
+input[type="number"]
+{
+    width:150px;
+    padding: 2px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-right: 4px;
+}
+
+input[type="text"] {
+    width:150px;
+    padding: 2px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-right: 4px;
+}
+
+.form-element {
+    padding:10px;
+}
+
+.form-product {
+    padding:10px;
+}
+
+.form-product2 {
+    padding:10px;
+    display:none;
+}
+
+label {
+    display:inline-block;
+    width: 110px;
+}
+
+span{
+    color: red;
+    display: none;
+}
+textarea{
+    width: 582px;
+    height: 160px;
+}
+
+@media screen  and (max-width: 900px){
+    form{
+        min-width: 600px;
+    }
+    textarea{
+        width: 310px;
+        height: 126px;
+    }
+    fieldset{
+        width: 570px;
+    }
+    
+    .form-product input[type="number"]{
+        width:150px;
+    }
+
+    .form-total{
+        float: left;  
+        overflow: auto;  
+        width: 280px; 
+    }
+}

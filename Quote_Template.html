@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Quote Form</title>
+        <link rel="stylesheet" href="css/quoteForm.css">
+        <script src="js/quoteValidation.js"></script>
+    </head>
+    <body>
+        <header>
+            <p> Author:<br>
+                Pham Gia Huy Nguyen<br>
+            </p>
+        </header>
+        <form id="quoteForm" method="POST" action="https://twaaut.cdms.westernsydney.edu.au/twainfo/form.asp" onsubmit="return validateForm();" novalidate>
+            <fieldset class="form-element">
+                <label for="qDate">Quote Date:</label>
+                <input type="text" id="qDate" name="qDate" placeholder="dd/mm/yyyy" onblur="checkDate();">
+                <span id="qDate-error">Date must be dd/mm/yyyy format</span><br>
+                <label for="sNum">Staff Number:</label>
+                <input type="text" id="sNum" name="sNum" placeholder="ex: CUL1998" onblur="checkStaff();">
+                <label for="sFName">First Name:</label>
+                <input type="text" id="sFName" name="sFName">
+                <span id="sNum-error">Staff ID must start with 3 alpha characters followed by 4 numbers</span>
+            </fieldset>
+            <fieldset class="form-element">
+                <legend>Customer Details</legend>
+                <label for="cTitle">Title:</label>
+                <input type="text" id="cTitle" name="cTitle"><br>
+                <label for="cFName">First Name:</label>
+                <input type="text" id="cFName" name="CFName" onblur="checkName();">
+                <label for="cLName">Surname:</label>
+                <input type="text" id="cLName" name="cLName" onblur="checkName2()">
+                <span id="cFName-error">No special character allowed except hyphen[-] for Firstname</span>
+                <span id="cLName-error">No special character allowed except hyphen[-] for Lastname</span>
+                <br>
+                <label for="sAddress">Street Address:</label>
+                <input type="text" id="sAddress" name="sAddress" onblur="checkAddress();">
+                <label for="sSuburb">Suburb:</label>
+                <input type="text" id="sSuburb" name="sSuburb" onblur="checkSuburb();">
+                <label for="postcode">Postcode:</label>
+                <input type="text" id="postcode" name="postcode" onblur="checkPostcode();"><br>
+                <span id="sAddress-error">No special character allowed except hyphen[-],slash[/] for address</span>
+                <span id="sSuburb-error">No special character allowed except hyphen[-] for suburb</span>
+                <span id="postcode-error">Postcode must be 4 digit</span>
+                <label for="cPhone">Phone Number:</label>
+                <input type="text" id="cPhone" name="cPhone" placeholder="Start with 04 or 02" onblur="checkPhone();">
+                <label for="cEmail">Email:</label>
+                <input type="text" id="cEmail" name="cEmail" onblur="checkEmail();">
+                <span id="cPhone-error">Invalid Phone number</span>
+                <span id="cEmail-error">Invalid email address</span>
+            </fieldset>
+            <div onclick="addProduct()">
+                <p>Check/uncheck the box to add/remove products</p>
+                <input type="checkbox" name="addProduct" id="addp2" value="p2"><label for="addp2">Add Product 2</label>
+                <input type="checkbox" name="addProduct" id="addp3" value="p3"><label id="laddp3" for="addp3">Add Product 3</label>
+                <input type="checkbox" name="addProduct" id="addp4" value="p4"><label id="laddp4" for="addp4">Add Product 4</label>
+                <input type="checkbox" name="addProduct" id="addp5" value="p5"><label id="laddp5" for="addp5">Add Product 5</label>
+                <br>
+                <br>
+            </div>
+            <fieldset id="p1" class="form-product" onblur="checkProduct1()">
+                <legend>Product Details 1</legend>
+                    <label for="pID1">Product ID:</label>
+                    <input type="text" id="pID1" name="pID1">
+                    <label for="pName1">Description:</label>
+                    <input type="text" id="pName1" name="pName1" placeholder="Product Name"><br>
+                    <label for="pQuantity1">Quantity:</label>
+                    <input type="number" id="pQuantity1" name="pQuantity1" placeholder="Max: 20" onchange="calLine1()">
+                    <label for="pUnitPrice1">Unit Price:</label>
+                    <input type="number" step="0.01" id="pUnitPrice1" name="pUnitPrice1" onchange="calLine1()" >
+                    <label for="pLineTotal1">Line Total</label>
+                    <input type="number" id="pLineTotal1" name="pLineTotal1" readonly>
+                    <span id="pName1-error">Description must be less than 60 character</span>
+                    <span id="pQuantity1-error">Quantity must between 1-20</span>
+                    <span id="pUnitPrice1-error">UPrice must be positive number</span>
+            </fieldset>  
+            <fieldset id="p2" class="form-product2" onblur="checkProduct2()" disabled>
+                <legend>Product Details 2</legend>
+                    <label for="pID2">Product ID 2:</label>
+                    <input type="text" id="pID2" name="pID2">               
+                    <label for="pName2">Description:</label>
+                    <input type="text" id="pName2" name="pName2" placeholder="Product Name"><br>
+                    <label for="pQuantity2">Quantity:</label>
+                    <input type="number" id="pQuantity2" name="pQuantity2" placeholder="Max: 20" onchange="calLine2()">
+                    <label for="pUnitPrice2">Unit Price:</label>
+                    <input type="number" step="0.01" id="pUnitPrice2" name="pUnitPrice2" onchange="calLine2()">
+                    <label for="pLineTotal2">Line Total</label>
+                    <input type="number" id="pLineTotal2" name="pLineTotal2" readonly>
+                    <span id="pName2-error">Description must be less than 60 character</span>
+                    <span id="pQuantity2-error">Quantity must between 1-20</span>
+                    <span id="pUnitPrice2-error">UPrice must be positive number</span>
+            </fieldset>
+            <fieldset id="p3" class="form-product2" onblur="checkProduct3()" disabled>
+                <legend>Product Details 3</legend>
+                    <label for="pID3">Product ID 3:</label>
+                    <input type="text" id="pID3" name="pID3">
+                    <label for="pName3">Description:</label>
+                    <input type="text" id="pName3" name="pName3" placeholder="Product Name"><br>
+                    <label for="pQuantity3">Quantity:</label>
+                    <input type="number" id="pQuantity3" name="pQuantity3" placeholder="Max: 20" onchange="calLine3()">
+                    <label for="pUnitPrice3">Unit Price:</label>
+                    <input type="number" step="0.01" id="pUnitPrice3" name="pUnitPrice3" onchange="calLine3()">
+                    <label for="pLineTotal3">Line Total</label>
+                    <input type="number" id="pLineTotal3" name="pLineTotal3" readonly>
+                    <span id="pName3-error">Description must be less than 60 character</span>
+                    <span id="pQuantity3-error">Quantity must between 1-20</span>
+                    <span id="pUnitPrice3-error">UPrice must be positive number</span>
+            </fieldset>
+            <fieldset id="p4" class="form-product2" onblur="checkProduct4()" disabled>
+                <legend>Product Details 4</legend>
+                    <label for="pID4">Product ID 4:</label>
+                    <input type="text" id="pID4" name="pID4">
+                    <label for="pName4">Description:</label>
+                    <input type="text" id="pName4" name="pName4" placeholder="Product Name"><br>
+                    <label for="pQuantity4">Quantity:</label>
+                    <input type="number" id="pQuantity4" name="pQuantity4" placeholder="Max: 20" onchange="calLine4()">
+                    <label for="pUnitPrice4">Unit Price:</label>
+                    <input type="number" step="0.01" id="pUnitPrice4" name="pUnitPrice4" onchange="calLine4()">
+                    <label for="pLineTotal4">Line Total</label>
+                    <input type="number" id="pLineTotal4" name="pLineTotal4" readonly>
+                    <span id="pName4-error">Description must be less than 60 character</span>
+                    <span id="pQuantity4-error">Quantity must between 1-20</span>
+                    <span id="pUnitPrice4-error">UPrice must be positive number</span>
+            </fieldset>
+            <fieldset id="p5" class="form-product2" onblur="checkProduct5()" disabled>
+                <legend>Product Details 5</legend>
+                    <label for="pID5">Product ID 5:</label>
+                    <input type="text" id="pID5" name="pID5">
+                    <label for="pName5">Description:</label>
+                    <input type="text" id="pName5" name="pName5" placeholder="Product Name"><br>
+                    <label for="pQuantity5">Quantity:</label>
+                    <input type="number" id="pQuantity5" name="pQuantity5" placeholder="Max: 20" onchange="calLine5()">
+                    <label for="pUnitPrice5">Unit Price:</label>
+                    <input type="number" step="0.01" id="pUnitPrice5" name="pUnitPrice5" onchange="calLine5()">
+                    <label for="pLineTotal5">Line Total</label>
+                    <input type="number" id="pLineTotal5" name="pLineTotal5" readonly>
+                    <span id="pName5-error">Description must be less than 60 character</span>
+                    <span id="pQuantity5-error">Quantity must between 1-20</span>
+                    <span id="pUnitPrice5-error">UPrice must be positive number</span>
+            </fieldset>
+            <br>
+            <div class="form-total">
+                <label for="iDate">Requested Installation Date:</label>
+                <input type="text" id="iDate" name="iDate" placeholder="dd/mm/yyyy"> <br>            
+                <span id="iDate-error">Date must be dd/mm/yyyy format</span>
+                <label for="subtotal">Subtotal:</label>
+                <input type="number" id="subtotal" name="subtotal" readonly><br>
+                <label for="gst">GST:</label>
+                <input type="number" id="gst" name="gst" readonly><br>          
+                <label for="total">Total:</label>
+                <input type="number" id="total" name="total" readonly><br>
+                <label for="deposit">Deposit Paid:</label>
+                <input type="text" id="deposit" name="deposit" onchange="calDue()" onblur="checkDeposit()"><br>
+                <span id="deposit-error">Deposit must be positive number <br>and less than total</span>
+                <label for="due">Total Due</label>
+                <input type="number" id="due" name="due" readonly><br>
+            </div>
+            <div class="form-note">
+                <label for="note">Installation Notes:</label><br>
+                <textarea rows="10" cols="30" id="note" name="note"></textarea><br>
+                <span id="final-error">All red-coloured boxes must be filled correctly before submit</span>
+                <input type="submit" value="Submit">
+                <input type="reset" value="Clear all">
+            </div>
+            
+        </form>
+    </body>
+</html>
